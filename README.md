@@ -1,227 +1,271 @@
-# Green Hill Zone - A Figma Starter Pack
+# Green Hill Zone
 
-The goal of this repo & related files is to provide a healthy starter pack for new joiners, to play around with and experiment while onboarding on the Figma ecosystem. 
-This is linked to the [Green Hill Design System File](https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ/COPY-ME---Green-Hill-%E2%80%94-Design-System?node-id=0-1&p=f&t=ag0zJz3irrjAvTHQ-0 "COPY ME - Green Hill - Design System in CES Org") & the [Green Hill App Screens File](https://www.figma.com/design/wo6sV16gT4kNbl62wiByi8/COPY-ME---Green-Hill-%E2%80%94-App-Screens?node-id=0-1&p=f&t=Wy8sv5EJLxKOhYzi-0 "COPY ME - Green Hill - App Screens in CES Org")
+Green Hill Zone is a foundational training asset: a component library used as the
+shared reference for guides on **Figma Dev Mode, Code Connect, the Figma MCP
+server, and Figma Make**. It brings together reusable React components, a matching
+Figma design system, example app screens, and Code Connect templates so guides
+can build on the same design and code foundation.
 
+The component library is the core asset. Storybook documents its states and
+interactions, while a small operations app shows how the components work together.
+Training authors can reference these examples, and learners can copy the assets
+and use them throughout their exercises.
 
-# Get Started
+## How the asset supports training
 
-1. Clone this Repo, so you can play around and commit changes without breaking this template
-2. Copy the two files in CES Org (or save them locally, then import in your private Sandbox)
-3. Move your Design System file out of drafts and into a folder, then Publish as a Library
-4. Your copy of Green Hill - App Screens is still wired to the original file's library (boo :( ) - Run the AI Agent to swap every component instance to the new library component:
-    - Attach a link to your version of the Design System file
-    - Use this prompt (or your own version): 
-    
-       > Go through this file and update ALL the components to leverage the ones published in <COPY ME - Green Hill - Design System>
-       
-    - Check: click on components on the App Screen file - they should now be pulled from your library, and show as NOT CodeConnected yet. That's expected!
+| Guide topic | Foundation provided by this repository |
+| --- | --- |
+| Figma Dev Mode | Components, tokens, and matching screen examples for exploring design structure and implementation details. |
+| Code Connect | React and HTML templates that connect Figma component properties to code examples from the library. |
+| Figma MCP server | A concrete codebase and linked design assets for exercises that use design context to implement or modify screens with existing components. |
+| Figma Make | Reusable components, example screens, and local development configuration in `.figma/make/` for guided experimentation. |
 
-5. Go to your code and update the .env-example file:
-   - Add your own personal access token
-   - Add your file key (big number string in the URL of your **new Design System** file)
-   - update the name to remove "-example"
-6. Connect this repo's Code Connect setup to your copy of the Design System
-   - Update the urls in `figma.config.json` to point to your file
-   - The file key (e.g. `7B95vlwukQ3hKs4G4WH5P5`) should be the **only** change you do (do not touch the node IDs), unless you're creating new components, or detaching and recreating existing ones
-   - Set up your `.env` (see above)
-   - Run `npm run figma:publish` should now work against your copy
- 7. To view this app, run the below: 
-      ```bash
-      npm install
-      npm run dev
-      ```
+This repository supplies the shared assets. Individual guides define their
+learning objectives, exercises, and any tool or account setup they require.
 
+## Design and code references
 
+- [Green Hill Design System](https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ/COPY-ME---Green-Hill-%E2%80%94-Design-System?node-id=0-1): the companion component library in Figma.
+- [Green Hill App Screens](https://www.figma.com/design/wo6sV16gT4kNbl62wiByi8/COPY-ME---Green-Hill-%E2%80%94-App-Screens?node-id=0-1): example screens built from the design system.
+- [Component documentation](https://figmagination.github.io/Green-Hill-Zone/): the published Storybook.
+- [Code Connect reference](src/figma/README.md): template format, configuration, and property mappings.
+- [Agent instructions](AGENTS.md): build, implementation, and contribution guidance.
 
+## Run the library and example app
 
-
-
-## Component documentation (Storybook)
-
-Storybook documents all 18 exported components with live examples, prop tables,
-editable controls, and callback logging. Use the toolbar to preview Light, Dark,
-16-bit, and 32-bit themes. Form controls, table sorting/selection, and dialogs
-have interactive stories. Browser hover, focus, and pressed states work normally.
-
-Requires Node.js 22.12+ (Node 22 is used in CI).
+Use Node.js 22.12 or newer and npm. CI uses Node 22.
 
 ```bash
 npm ci
+npm run dev
+```
+
+Open the URL printed by Vite, normally `http://localhost:5173`. The example app
+uses React 18, Vite, React Router, and Tailwind CSS. It has no backend; data is
+static or held in component state so exercises can run locally without external
+data services. Running the app or Storybook does not require Figma credentials.
+
+To explore the components independently:
+
+```bash
 npm run storybook        # http://localhost:6006
-npm run build-storybook  # Static output: storybook-static/
 ```
 
-Stories live beside their components in `src/components/*.stories.jsx`; shared
-styles, themes, and the memory router are configured in `.storybook/preview.jsx`.
-Add a named story export for each meaningful state. Documentation is generated
-from the component's props and comments, with usage guidance in the story metadata.
+Storybook provides live examples, prop tables, editable controls, and callback
+logging. Use the toolbar to switch between Light, Dark, 16-bit, and 32-bit themes.
+Form controls, table sorting and selection, and dialogs have interactive stories.
 
-### Publish to GitHub Pages
+| Command | Purpose |
+| --- | --- |
+| `npm run build` | Build the example app into `dist/`. |
+| `npm run preview` | Preview the app after building it. |
+| `npm run lint` | Run ESLint. |
+| `npm run build-storybook` | Build component documentation into `storybook-static/`. |
+| `npm run figma:parse` | Validate React Code Connect templates without publishing. |
+| `npm run figma:parse:html` | Validate HTML Code Connect templates without publishing. |
 
-The [Storybook workflow](.github/workflows/storybook.yml) validates pull requests
-and deploys the static Storybook on pushes to `main`, or through **Actions →
-Storybook → Run workflow** on `main`. It uses GitHub's Pages artifact deployment;
-no generated build output or `gh-pages` branch needs to be committed.
+## Prepare a copy for training exercises
 
-For a new fork, open **Settings → Pages → Build and deployment → Source** and
-choose **GitHub Actions** before running the workflow. The repository must allow
-Actions and GitHub Pages. If the `github-pages` environment requires approval,
-approve its deployment in Actions.
+For exercises that modify code or publish mappings, use your own repository and
+Figma file copies.
 
-This repository's site URL is
-[figmagination.github.io/Green-Hill-Zone/](https://figmagination.github.io/Green-Hill-Zone/).
-Forks use `https://<owner>.github.io/<repository>/`; the deployment job reports
-the actual URL. Relative assets and the icon sprite work under either path.
-The site publishes component documentation at the repository's Pages root.
+1. Fork or clone this repository and create a meaningful branch before making
+   changes. Never make changes directly on `main`.
+2. Duplicate the Design System and App Screens files into a workspace where you
+   can edit them. Publish your Design System copy as a library for exercises that
+   use it across files.
+3. Update the App Screens copy to use components from your copied library.
+   Verify that its instances reference your Design System copy.
+4. For Code Connect exercises, update `documentUrlSubstitutions` in
+   `figma.config.json` and, if using HTML mappings, `figma.config.html.json` to
+   point to your Design System file. For a duplicate, preserve node IDs unless
+   components have been recreated.
+5. Configure your Figma access token and file key using the environment setup below.
+6. Parse the relevant templates, then publish to your copied file when the
+   exercise calls for it:
 
-# Some More Info
+   ```bash
+   npm run figma:parse
+   npm run figma:publish
+   ```
 
-## documentUrlSubstitutions
+For guides involving the MCP server or Make, follow the guide's client and
+account setup instructions alongside these assets. The repository includes
+Make development scripts and path configuration in `.figma/make/`.
 
-This repo uses the same pattern as Figma's [Simple Design System
-(SDS)](https://github.com/figma/sds): every template's `// url=` comment is a
-placeholder, not a literal Figma URL —
+## Configure Figma environment variables
 
+For Code Connect, create a personal access token in your Figma account settings.
+Give it **Code Connect: Write** and **File content: Read** permissions, and ensure
+your account can access the target design file. See Figma's
+[Code Connect setup](https://developers.figma.com/docs/code-connect/quickstart-guide/)
+and [token instructions](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens).
+
+Use the file key from your Design System copy's URL. In
+`https://www.figma.com/design/abc123/My-Design-System?node-id=0-1`, the file key is
+`abc123`, not the file name or node ID. Import the `.fig` files in [figma-files](./figma-files/) into your Figma instance first
+to obtain its hosted file URL and key.
+
+### Local environment file
+
+From the repository root, copy the example if you do not already have a `.env`:
+
+```bash
+cp -n .env-example .env
 ```
-// url=<FIGMA_BIG_BUTTON>
+
+Edit `.env` with your own values:
+
+```dotenv
+FIGMA_ACCESS_TOKEN=your_personal_access_token
+FIGMA_FILE_KEY=your_design_system_file_key
 ```
 
-— and `figma.config.json`'s `documentUrlSubstitutions` maps each placeholder to
-its real `https://www.figma.com/design/<file key>?node-id=<node id>`. This
-keeps templates file-agnostic and colocates every Figma-file-specific value in
-one place, named so you can find the component without following a link:
-`<FIGMA_[GROUP]_[COMPONENT]>`.
+The installed Code Connect CLI loads `.env` from the current working directory,
+so run the npm commands from the repository root. Existing shell environment
+variables take precedence over values in `.env`. If an old exported token is being
+used, run `unset FIGMA_ACCESS_TOKEN` before retrying with the file's value.
 
-For more info about how this works, see [Configuring
-your project](https://developers.figma.com/docs/code-connect/api/config-file/).
+### Shell environment or CI
 
+You can supply the same values as exported environment variables instead:
 
-## What each template maps
+```bash
+export FIGMA_ACCESS_TOKEN='your_personal_access_token'
+export FIGMA_FILE_KEY='your_design_system_file_key'
+npm run figma:parse
+```
 
-| Figma property | Code prop | Notes |
-|---|---|---|
-| `BigButton.State=disabled` | `disabled` | hover/pressed are `:hover` / `:active`, no prop |
-| `InputField.State=error` | `error` | focus is `focus:ring-2`, no prop |
-| `InputField.State=disabled` | `disabled` | |
-| `InputField.Has Message` | `error` **or** `helpText` | one slot, never both |
-| `InlineBanner.Has Action` | `action` | BOOLEAN property, not a variant axis |
-| `InlineBanner.Has Description` | `description` | VARIANT axis (`"true"`/`"false"`) |
-| `TableV2 / Row.State=selected` | `selectedId` matches the row id | hover has no prop |
-| `TableV2 / Header Cell.Sort` | `headers` entry shape | `off` → plain string; others → `{ label, key }` |
-| `NavItem.Active` | `active` | real prop; NavBar derives it from `useLocation()` |
-| `ThemeToggle.Mode` | — | no prop; the component reads `useTheme()` itself |
-| `PageHeader.Has Icon` | `icon` | BOOLEAN gating an INSTANCE_SWAP slot |
-| `PageHeader.Icon` | `icon` | INSTANCE_SWAP; preferred values are the 6 Icon glyphs |
-| `PageHeader.Has Badge` | `badge` | BOOLEAN; tone lives on the nested StatusBadge |
-| `PageHeader.Actions` | `actions` | real SLOT — arbitrary content, read with `getSlot()` |
-| `SettingRow` nested `ToggleSwitch` | `checked` / `disabled` | EXPOSED nested instance; the switch's own props surface on the row |
-| `SettingRow.Control` | `control` | SLOT; default content is the exposed `ToggleSwitch` — untouched it's a boolean row |
-| `Icon.Name` | `name` | one axis, one glyph — never a variant per icon |
-| `BigButton.Has Icon` / `.Icon` | `icon` | BOOLEAN + INSTANCE_SWAP; renders at 16px, inherits label colour |
-| `Avatar.Has Image` | `src` | `true` emits `src`; `false` falls back to initials derived from `name` |
-| `Avatar.Size` | `size` | 24 / 32 / 40 px ramp, not a spacing token |
-| `Avatar.Initials` | — | code derives initials from `name`; the property exists only because Figma can't |
-| `StatGrid.Columns` | `columns` | GRID auto-layout; children carry `minWidth: 180` |
+These are placeholders; avoid saving real tokens in shell history. In CI, inject
+`FIGMA_ACCESS_TOKEN` from the platform's secret store and supply `FIGMA_FILE_KEY`
+as a configuration variable. The exported values apply to commands launched from
+that shell and can be cleared with `unset FIGMA_ACCESS_TOKEN FIGMA_FILE_KEY`.
 
-Every VARIANT is mapped **exhaustively**. An unmapped variant value silently
-returns `undefined` and emits a broken snippet — that is the single most common
-Code Connect defect, so the pseudo-class states are mapped explicitly to the
-same output as `default` rather than omitted.
+### Configure the target file
 
+`FIGMA_ACCESS_TOKEN` authenticates the CLI. `FIGMA_FILE_KEY` records the target
+file for training exercises and scripts; the current npm commands and Code
+Connect configs do **not** use it to rewrite template URLs automatically.
 
-# About this App
+Update the file-key segment of each relevant `documentUrlSubstitutions` URL in
+`figma.config.json` and `figma.config.html.json` to match your file key. Preserve
+the component node IDs unless components were recreated. Parse the relevant
+templates and review their resolved URLs before publishing to your copied file.
 
-A small, realistic internal ops tool — dashboard, billing/invoices, AR aging,
-team & access, integrations, reports, and settings. Built to be a clean,
-independent base for a Figma "what best looks like" reference package: a
-matching **Design System** file, an **App Screens** file built from that
-system's components, and this codebase wired up with **Code Connect**.
+Keep real credentials only in the ignored `.env` or your environment. Leave
+`.env-example` as a placeholder template, and do not prefix the token with
+`VITE_`, which would make it available to browser code. These variables configure
+Code Connect and scripts; follow your MCP client's authentication setup separately.
 
-Named after Green Hill Zone — the tutorial level every Sonic the Hedgehog
-player learns the game on. This is that: the level new TAMs run through to
-learn the ecosystem, before they head into the real thing.
+## Component library
 
-It is intentionally small and has no backend: all data is static and held in
-component state, so there's nothing to time out, fail to load, or flake in a
-live demo.
+Components live in `src/components/`, with stories beside them in
+`*.stories.jsx`. Shared Storybook styles, themes, and routing are configured in
+`.storybook/preview.jsx`.
 
-## Provenance
+| Group | Components |
+| --- | --- |
+| Atoms | `Avatar`, `BigButton`, `Icon`, `InputField`, `Select`, `StatusBadge`, `ThemeToggle`, `ToggleSwitch` |
+| Compositions | `PageHeader`, `SettingRow`, `StatGrid`, `InlineBanner`, `EmptyState`, `Modal`, `TableV2`, `NavBar` (including `NavItem`) |
+| Card | `CardThing` |
 
-This project's structure and component set are based on an internal
-"brownfield" training exercise (a deliberately messy app used to practice
-spotting and fixing code issues). All five documented issues from that
-exercise have been fixed here, several missing UI states have been added,
-and this repo is otherwise fully independent going forward — it is not
-synced with or dependent on the original training repo.
-Also note that the overall structure of the Simple Design System repo where reused to achieve best practices around flexible URL usage & copying of files.
+The library covers status indicators, inline errors, empty states, confirm and
+form dialogs, and interactive controls. These examples give training guides
+specific components and states to reference.
 
-## Stack
+Themes use a two-tier CSS token system in `src/index.css`: primitives and semantic
+tokens that alias them. Tailwind utilities are tied to those tokens in
+`tailwind.config.js`. The four modes share the same components while changing
+colors, typography, radii, and other theme values.
 
-React 18 + Vite + React Router + Tailwind. Theming is plain CSS custom
-properties in a two-tier token layer — raw primitives, then semantic tokens
-that alias them — across four modes: light, dark, 16-bit and 32-bit
-(see `src/index.css`).
-
-## Curriculum structure
-
-- **Act 1 — Foundations & Fidelity**: Design System, Dev Mode, Code Connect
-- **Act 2 — AI & Exploration**: Make Kits, Make Local, Code Layers
-- **Special Stage**: optional/advanced material (e.g. legacy-retrofit exercises)
-
-## Screens
-
-- **Dashboard** (`/dashboard`) — overview stats + recent accounts table
-- **Billing & invoices** (`/billing`) — invoice table, record-payment confirm dialog
-- **AR aging** (`/billing/aging`) — receivables aging buckets
-- **Team & access** (`/team`) — member list, invite-user form dialog
-- **Integrations** (`/integrations`) — connected tools, a failed-sync banner example
-- **Reports** (`/reports`) — empty state (no data connected yet)
-- **Settings** (`/settings`) — workspace form, toggles, disabled-button validation
-
-## Components
-
-**Atoms** — `Avatar`, `BigButton`, `Icon`, `InputField`, `Select`,
-`StatusBadge`, `ThemeToggle`, `ToggleSwitch`
-
-**Compositions** (components that contain other components) — `PageHeader`
-(Icon + StatusBadge + a BigButton slot), `SettingRow` (an exposed nested
-ToggleSwitch), `StatGrid` (CardThings in a grid), `InlineBanner` /
-`EmptyState` / `Modal` (nested BigButtons), `TableV2` (Header Cell / Row /
-Cell, with StatusBadge in badge cells), `NavBar` (NavItem + ThemeToggle)
-
-**Plus** — `CardThing`
-
-Between them they cover the states an enterprise ops screen actually needs —
-success/warning/danger status, inline errors, empty data, confirm/form dialogs.
-
-### Capability coverage
-
-The component set is also a checklist: every Figma component capability has
-exactly one reference example, so there is always a specific place to point at.
+### Design capabilities to explore
 
 | Capability | Reference example |
-|---|---|
-| VARIANT, single axis | `StatusBadge.Tone`, `Icon.Name` |
-| VARIANT, multi-axis matrix | `BigButton` (3 x 2 x 4 = 24), `InputField` (4 x 2) |
-| TEXT property | `CardThing.Title`, `InputField.Label` |
-| BOOLEAN property | `InlineBanner.Has Action`, `InputField.Required` |
-| INSTANCE_SWAP + preferred values | `PageHeader.Icon`, `BigButton.Icon` |
-| SLOT (+ max children, preferred-only) | `PageHeader.Actions` (empty by default), `SettingRow.Control` (default content) |
+| --- | --- |
+| Single-axis variants | `StatusBadge.Tone`, `Icon.Name` |
+| Multiple variant axes | `BigButton`, `InputField` |
+| Text properties | `CardThing.Title`, `InputField.Label` |
+| Boolean properties | `InlineBanner.Has Action`, `InputField.Required` |
+| Instance swaps | `PageHeader.Icon`, `BigButton.Icon` |
+| Slots | `PageHeader.Actions`, `SettingRow.Control` |
 | Nested instances | `Modal`, `EmptyState`, `TableV2`, `NavBar` |
-| Exposed nested instance properties | `SettingRow` (its `ToggleSwitch`) |
-| Image fill + circular crop | `Avatar` (Has Image=true) |
-| GRID auto-layout + min width | `StatGrid` |
-| Text truncation / max lines | `CardThing.Title` (1), `PageHeader.Description` (2) |
-| Interactive component (prototype) | `BigButton` (hover/press), `ToggleSwitch` (click) |
-| Dev Mode annotations | the six layers listed in `src/figma/README.md` |
-| Multiple code mappings per component | `BigButton`, `StatusBadge`, `Icon` (React + HTML) |
-| Multi-mode variables | `Semantic` collection, 4 modes |
+| Exposed nested properties | `SettingRow` and its `ToggleSwitch` |
+| Images and circular crops | `Avatar` |
+| Grid layout | `StatGrid` |
+| Text truncation | `CardThing.Title`, `PageHeader.Description` |
+| Interactive states | `BigButton`, `ToggleSwitch` |
+| Dev Mode annotations | Component layers documented in `src/figma/README.md` |
+| React and HTML mappings | `BigButton`, `StatusBadge`, `Icon` |
+| Multiple variable modes | Light, Dark, 16-bit, and 32-bit |
 
-Two capabilities are deliberately absent: Code Connect's `links` field (not
-available to parserless templates — annotations are used instead) and
-platform ports beyond web (see `ROADMAP.md`).
+## Example app screens
 
-## Getting started
+The operations app provides composed examples for training exercises:
 
+| Route | Example |
+| --- | --- |
+| `/dashboard` | Overview stats and a recent accounts table. |
+| `/billing` | Invoice table and a record-payment confirmation dialog. |
+| `/billing/aging` | Receivables aging buckets. |
+| `/team` | Member list and an invite-user form dialog. |
+| `/integrations` | Connected tools and a failed-sync banner. |
+| `/reports` | An empty state. |
+| `/settings` | Workspace form, toggles, and disabled-button validation. |
 
+Routes are defined in `src/App.jsx`; screens live in `src/pages/`.
+
+## Code Connect conventions
+
+React templates live in `src/figma/` and use the parserless `.figma.ts` format
+with `figma.code`. Template URL directives use placeholders such as
+`// url=<FIGMA_BIG_BUTTON>`. The `documentUrlSubstitutions` configuration resolves
+these to the target Figma file and node, keeping file-specific URLs in one place.
+
+Every variant value is mapped explicitly. Hover and pressed variants resolve to
+the appropriate code example while browser pseudo-classes handle the actual
+interaction. Keep component props and template mappings aligned when extending
+the library.
+
+`BigButton`, `StatusBadge`, and `Icon` also have HTML mappings in
+`src/figma-html/`, backed by `web/green-hill.css`. Their configuration is in
+`figma.config.html.json`.
+
+```bash
+npm run figma:parse:html
+npm run figma:publish:html
+# Publish both React and HTML mappings when required:
+npm run figma:publish:all
+```
+
+Publishing writes mappings to the configured Figma files. See the
+[Code Connect reference](src/figma/README.md) for the full property mapping table,
+nesting behavior, and publishing details.
+
+## Contributing
+
+Create a branch with a meaningful name before making changes. Keep the component
+library, stories, documentation, and relevant mappings consistent so guides can
+continue to use the same examples. Preserve the self-contained app and reuse
+shared components when extending screens.
+
+For application changes, run `npm run lint` and `npm run build`. For component or
+Storybook changes, also run `npm run build-storybook`. Validate changed mappings
+with the relevant parse command and exercise affected interactions in the app or
+Storybook across the four themes. There is no dedicated automated test script in
+`package.json`. Documentation-only changes need content and whitespace review.
+
+Do not commit credentials, dependencies, or generated build output. Submit
+changes through a pull request with a description of the resulting behavior,
+validation performed, and any companion Figma updates needed. See
+[AGENTS.md](AGENTS.md) for detailed contribution instructions and
+[ROADMAP.md](ROADMAP.md) for future platform ideas.
+
+### Storybook deployment
+
+The [Storybook workflow](.github/workflows/storybook.yml) runs lint and builds
+Storybook for pull requests targeting `main`. Pushes to `main` and manual workflow
+runs on `main` deploy the static documentation through GitHub Pages artifacts.
+Generated output and a `gh-pages` branch do not need to be committed.
+
+For a fork, choose **GitHub Actions** under **Settings → Pages → Build and
+deployment → Source**. The deployment job reports the resulting site URL.
