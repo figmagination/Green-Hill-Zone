@@ -37,6 +37,44 @@ This is linked to the [Green Hill Design System File](https://www.figma.com/desi
 
 
 
+## Component documentation (Storybook)
+
+Storybook documents all 18 exported components with live examples, prop tables,
+editable controls, and callback logging. Use the toolbar to preview Light, Dark,
+16-bit, and 32-bit themes. Form controls, table sorting/selection, and dialogs
+have interactive stories. Browser hover, focus, and pressed states work normally.
+
+Requires Node.js 22.12+ (Node 22 is used in CI).
+
+```bash
+npm ci
+npm run storybook        # http://localhost:6006
+npm run build-storybook  # Static output: storybook-static/
+```
+
+Stories live beside their components in `src/components/*.stories.jsx`; shared
+styles, themes, and the memory router are configured in `.storybook/preview.jsx`.
+Add a named story export for each meaningful state. Documentation is generated
+from the component's props and comments, with usage guidance in the story metadata.
+
+### Publish to GitHub Pages
+
+The [Storybook workflow](.github/workflows/storybook.yml) validates pull requests
+and deploys the static Storybook on pushes to `main`, or through **Actions →
+Storybook → Run workflow** on `main`. It uses GitHub's Pages artifact deployment;
+no generated build output or `gh-pages` branch needs to be committed.
+
+For a new fork, open **Settings → Pages → Build and deployment → Source** and
+choose **GitHub Actions** before running the workflow. The repository must allow
+Actions and GitHub Pages. If the `github-pages` environment requires approval,
+approve its deployment in Actions.
+
+This repository's site URL is
+[figmagination.github.io/Green-Hill-Zone/](https://figmagination.github.io/Green-Hill-Zone/).
+Forks use `https://<owner>.github.io/<repository>/`; the deployment job reports
+the actual URL. Relative assets and the icon sprite work under either path.
+The site publishes component documentation at the repository's Pages root.
+
 # Some More Info
 
 ## documentUrlSubstitutions

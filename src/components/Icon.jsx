@@ -29,7 +29,7 @@ export function Icon({ name, size = 20, label }) {
       className="shrink-0"
     >
       {label && <title>{label}</title>}
-      <use href={`/icons.svg#${name}-icon`} />
+      <use href={`${import.meta.env.BASE_URL}icons.svg#${name}-icon`} />
     </svg>
   )
 }
