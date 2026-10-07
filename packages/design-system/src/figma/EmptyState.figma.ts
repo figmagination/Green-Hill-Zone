@@ -1,0 +1,27 @@
+// url=<FIGMA_EMPTY_STATE>
+// source=packages/design-system/src/components/EmptyState.jsx
+// component=EmptyState
+import figma from 'figma'
+const instance = figma.selectedInstance
+
+const title = instance.getString('Title')
+const description = instance.getString('Description')
+const hasDescription = instance.getEnum('Has Description', { true: true, false: false })
+const hasAction = instance.getEnum('Has Action', { true: true, false: false })
+
+const actionBtn = hasAction ? instance.findInstance('BigButton', { traverseInstances: true }) : null
+let actionCode
+if (actionBtn && actionBtn.type === 'INSTANCE') {
+  actionCode = actionBtn.executeTemplate().example
+}
+
+export default {
+  example: figma.code`<EmptyState
+  title="${title}"${hasDescription ? figma.code`
+  description="${description}"` : ''}${actionCode ? figma.code`
+  action={${actionCode}}` : ''}
+/>`,
+  imports: ["import { EmptyState } from '@green-hill/design-system/components/EmptyState.jsx'"],
+  id: 'empty-state',
+  metadata: { nestable: false },
+}

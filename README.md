@@ -28,8 +28,39 @@ learning objectives, exercises, and any tool or account setup they require.
 - [Green Hill Design System](https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ/COPY-ME---Green-Hill-%E2%80%94-Design-System?node-id=0-1): the companion component library in Figma.
 - [Green Hill App Screens](https://www.figma.com/design/wo6sV16gT4kNbl62wiByi8/COPY-ME---Green-Hill-%E2%80%94-App-Screens?node-id=0-1): example screens built from the design system.
 - [Component documentation](https://figmagination.github.io/Green-Hill-Zone/): the published Storybook.
-- [Code Connect reference](src/figma/README.md): template format, configuration, and property mappings.
+- [Code Connect reference](packages/design-system/src/figma/README.md): template format, configuration, and property mappings.
 - [Agent instructions](AGENTS.md): build, implementation, and contribution guidance.
+
+## Monorepo layout
+
+This repository uses npm workspaces with one root lockfile:
+
+- `packages/design-system` (`@green-hill/design-system`): reusable components,
+  colocated stories, theme tokens and hook, SVG sprite, shared Tailwind preset,
+  Storybook, and React/HTML Code Connect templates.
+- `apps/app-screens` (`@green-hill/app-screens`): the Vite operations app,
+  routes, screen examples, and app assets. It depends on the design system workspace.
+
+Shared linting, Code Connect configuration, Figma source files, and Make scripts
+remain at the repository root. Run `npm ci` there to install both workspaces.
+The private design-system package exports source JSX and CSS for Vite to process;
+it does not require a separate library build or publishing step.
+
+Screens import library components through package exports, for example:
+
+```jsx
+import BigButton from '@green-hill/design-system/components/BigButton.jsx'
+import { PageHeader } from '@green-hill/design-system'
+import '@green-hill/design-system/styles.css'
+```
+
+The app's Tailwind config uses `@green-hill/design-system/tailwind-preset`
+and scans both screen and component sources. The `@/` alias refers only to the
+app's own source. Design-system internals use relative imports.
+
+Root commands below forward to the appropriate workspace. You can also run
+`npm run dev --workspace @green-hill/app-screens` or
+`npm run storybook --workspace @green-hill/design-system` directly.
 
 ## Run the library and example app
 
@@ -57,10 +88,10 @@ Form controls, table sorting and selection, and dialogs have interactive stories
 
 | Command | Purpose |
 | --- | --- |
-| `npm run build` | Build the example app into `dist/`. |
+| `npm run build` | Build the example app into `apps/app-screens/dist/`. |
 | `npm run preview` | Preview the app after building it. |
 | `npm run lint` | Run ESLint. |
-| `npm run build-storybook` | Build component documentation into `storybook-static/`. |
+| `npm run build-storybook` | Build component documentation into `packages/design-system/storybook-static/`. |
 | `npm run figma:parse` | Validate React Code Connect templates without publishing. |
 | `npm run figma:parse:html` | Validate HTML Code Connect templates without publishing. |
 
@@ -159,9 +190,9 @@ Code Connect and scripts; follow your MCP client's authentication setup separate
 
 ## Component library
 
-Components live in `src/components/`, with stories beside them in
+Components live in `packages/design-system/src/components/`, with stories beside them in
 `*.stories.jsx`. Shared Storybook styles, themes, and routing are configured in
-`.storybook/preview.jsx`.
+`packages/design-system/.storybook/preview.jsx`.
 
 | Group | Components |
 | --- | --- |
@@ -173,9 +204,9 @@ The library covers status indicators, inline errors, empty states, confirm and
 form dialogs, and interactive controls. These examples give training guides
 specific components and states to reference.
 
-Themes use a two-tier CSS token system in `src/index.css`: primitives and semantic
+Themes use a two-tier CSS token system in `packages/design-system/src/index.css`: primitives and semantic
 tokens that alias them. Tailwind utilities are tied to those tokens in
-`tailwind.config.js`. The four modes share the same components while changing
+`packages/design-system/tailwind.preset.js`. The four modes share the same components while changing
 colors, typography, radii, and other theme values.
 
 ### Design capabilities to explore
@@ -194,7 +225,7 @@ colors, typography, radii, and other theme values.
 | Grid layout | `StatGrid` |
 | Text truncation | `CardThing.Title`, `PageHeader.Description` |
 | Interactive states | `BigButton`, `ToggleSwitch` |
-| Dev Mode annotations | Component layers documented in `src/figma/README.md` |
+| Dev Mode annotations | Component layers documented in `packages/design-system/src/figma/README.md` |
 | React and HTML mappings | `BigButton`, `StatusBadge`, `Icon` |
 | Multiple variable modes | Light, Dark, 16-bit, and 32-bit |
 
@@ -212,11 +243,11 @@ The operations app provides composed examples for training exercises:
 | `/reports` | An empty state. |
 | `/settings` | Workspace form, toggles, and disabled-button validation. |
 
-Routes are defined in `src/App.jsx`; screens live in `src/pages/`.
+Routes are defined in `apps/app-screens/src/App.jsx`; screens live in `apps/app-screens/src/pages/`.
 
 ## Code Connect conventions
 
-React templates live in `src/figma/` and use the parserless `.figma.ts` format
+React templates live in `packages/design-system/src/figma/` and use the parserless `.figma.ts` format
 with `figma.code`. Template URL directives use placeholders such as
 `// url=<FIGMA_BIG_BUTTON>`. The `documentUrlSubstitutions` configuration resolves
 these to the target Figma file and node, keeping file-specific URLs in one place.
@@ -227,7 +258,7 @@ interaction. Keep component props and template mappings aligned when extending
 the library.
 
 `BigButton`, `StatusBadge`, and `Icon` also have HTML mappings in
-`src/figma-html/`, backed by `web/green-hill.css`. Their configuration is in
+`packages/design-system/src/figma-html/`, backed by `packages/design-system/web/green-hill.css`. Their configuration is in
 `figma.config.html.json`.
 
 ```bash
@@ -238,7 +269,7 @@ npm run figma:publish:all
 ```
 
 Publishing writes mappings to the configured Figma files. See the
-[Code Connect reference](src/figma/README.md) for the full property mapping table,
+[Code Connect reference](packages/design-system/src/figma/README.md) for the full property mapping table,
 nesting behavior, and publishing details.
 
 ## Contributing
@@ -263,7 +294,7 @@ validation performed, and any companion Figma updates needed. See
 ### Storybook deployment
 
 The [Storybook workflow](.github/workflows/storybook.yml) runs lint and builds
-Storybook for pull requests targeting `main`. Pushes to `main` and manual workflow
+the app and Storybook for pull requests targeting `main`. Pushes to `main` and manual workflow
 runs on `main` deploy the static documentation through GitHub Pages artifacts.
 Generated output and a `gh-pages` branch do not need to be committed.
 

@@ -8,8 +8,8 @@ library for guides on Dev Mode, Code Connect, the Figma MCP server, and Make.
 
 | File | Purpose | Related code |
 | --- | --- | --- |
-| [Green Hill - Design System.fig](<Green Hill - Design System.fig>) | The companion design system: reusable components, variants, and design tokens used as the foundation for exercises. | [`src/components/`](../src/components/), [`src/index.css`](../src/index.css), and [`src/figma/`](../src/figma/). |
-| [Green Hill - App Screens.fig](<Green Hill - App Screens.fig>) | Example operations screens that show the design system in context, including dashboard, billing, team, integrations, reports, and settings examples. | [`src/pages/`](../src/pages/) and the routes in [`src/App.jsx`](../src/App.jsx). |
+| [Green Hill - Design System.fig](<Green Hill - Design System.fig>) | The companion design system: reusable components, variants, and design tokens used as the foundation for exercises. | [`packages/design-system/src/components/`](../packages/design-system/src/components/), [`packages/design-system/src/index.css`](../packages/design-system/src/index.css), and [`packages/design-system/src/figma/`](../packages/design-system/src/figma/). |
+| [Green Hill - App Screens.fig](<Green Hill - App Screens.fig>) | Example operations screens that show the design system in context, including dashboard, billing, team, integrations, reports, and settings examples. | [`apps/app-screens/src/pages/`](../apps/app-screens/src/pages/) and the routes in [`apps/app-screens/src/App.jsx`](../apps/app-screens/src/App.jsx). |
 
 Both files were exported on **October 7, 2026 (UTC)**, according to their embedded
 metadata. They are snapshots; changes to hosted Figma files or repository code
@@ -56,7 +56,7 @@ ID resolves to the intended component in the imported file.
 Run `npm run figma:parse` and, if using HTML mappings,
 `npm run figma:parse:html` from the repository root. Review the resolved URLs
 before publishing mappings to your training copy. The
-[Code Connect reference](../src/figma/README.md) explains the mapping and
+[Code Connect reference](../packages/design-system/src/figma/README.md) explains the mapping and
 publishing workflow.
 
 ### MCP server and Make
