@@ -29,7 +29,7 @@ When contributing:
 - For MCP server exercises, keep source components and example screens easy to
   locate and reuse. Add client setup instructions only when they are part of the
   task and have been verified for that client.
-- For Make exercises, reuse `src/components/` when extending screens and preserve
+- For Make exercises, reuse `packages/design-system/src/components/` when extending screens and preserve
   the relevant `.figma/make/` configuration. Review any referenced paths when
   renaming or moving files.
 - Distinguish the assets supplied here from procedures supplied by individual
@@ -37,17 +37,21 @@ When contributing:
 
 ## Repository map
 
-- `src/App.jsx`: application routes; `src/main.jsx`: application entry point.
-- `src/pages/`: dashboard, billing, team, integrations, reports, and settings screens.
-- `src/components/`: reusable UI components and colocated `*.stories.jsx` files.
-- `src/index.css`: primitive and semantic design tokens, plus theme styles.
-- `src/useTheme.js` and `index.html`: theme selection and initial theme application.
-- `tailwind.config.js`: utility scales backed by the design tokens.
-- `.storybook/`: Storybook setup, theme previews, and shared router decorator.
-- `src/stories/Introduction.mdx`: introductory component documentation.
-- `public/icons.svg`: shared icon sprite used by `src/components/Icon.jsx`.
-- `src/figma/`: React Code Connect templates and detailed mapping guidance.
-- `src/figma-html/` and `web/green-hill.css`: HTML mappings and their CSS implementation.
+- `apps/app-screens/src/App.jsx`: application routes; `apps/app-screens/src/main.jsx`: application entry point.
+- `apps/app-screens/src/pages/`: dashboard, billing, team, integrations, reports, and settings screens.
+- `packages/design-system/src/components/`: reusable UI components and colocated `*.stories.jsx` files.
+- `packages/design-system/src/index.css`: primitive and semantic design tokens, plus theme styles.
+- `packages/design-system/src/useTheme.js` and `apps/app-screens/index.html`: theme selection and initial theme application.
+- `packages/design-system/tailwind.preset.js`: shared utility scales backed by the design tokens.
+- `apps/app-screens/tailwind.config.js`: scans app and design-system sources.
+- `packages/design-system/tailwind.config.js`: scans design-system stories and components.
+- Root `package.json` and `package-lock.json`: npm workspaces and shared tooling.
+- Workspace `package.json` files: package exports, dependencies, and app/Storybook scripts.
+- `packages/design-system/.storybook/`: Storybook setup, theme previews, and shared router decorator.
+- `packages/design-system/src/stories/Introduction.mdx`: introductory component documentation.
+- `packages/design-system/src/assets/icons.svg`: shared icon sprite used by `packages/design-system/src/components/Icon.jsx`.
+- `packages/design-system/src/figma/`: React Code Connect templates and detailed mapping guidance.
+- `packages/design-system/src/figma-html/` and `packages/design-system/web/green-hill.css`: HTML mappings and their CSS implementation.
 - `figma.config.json` and `figma.config.html.json`: mapping configuration and Figma URL substitutions.
 - `.github/workflows/storybook.yml`: pull request checks and Storybook Pages deployment.
 - `.figma/make/`: local development scripts and configuration for Make exercises.
@@ -62,17 +66,17 @@ alongside `package.json` when intentionally changing dependencies.
 | --- | --- |
 | `npm ci` | Install the locked dependency versions. |
 | `npm run dev` | Start the Vite development server (normally port 5173; use the printed URL). |
-| `npm run build` | Build the application into `dist/`. |
+| `npm run build` | Build the application into `apps/app-screens/dist/`. |
 | `npm run preview` | Serve the built application locally after running the build. |
 | `npm run lint` | Run ESLint over the repository. |
 | `npm run storybook` | Start component documentation at `http://localhost:6006`. |
-| `npm run build-storybook` | Build static component documentation into `storybook-static/`. |
+| `npm run build-storybook` | Build static component documentation into `packages/design-system/storybook-static/`. |
 | `npm run figma:parse` | Parse the React Code Connect templates without publishing. |
 | `npm run figma:parse:html` | Parse the HTML Code Connect templates without publishing. |
 
 The app and Storybook do not require Figma credentials. For Code Connect setup,
 follow the environment instructions in `README.md` and the mapping reference in
-`src/figma/README.md`. Do not commit `node_modules/`, `dist/`, or `storybook-static/`.
+`packages/design-system/src/figma/README.md`. Do not commit `node_modules/`, `dist/`, or `storybook-static/`.
 
 ### Figma environment configuration
 
@@ -100,27 +104,28 @@ follow the environment instructions in `README.md` and the mapping reference in
 - Follow the existing JSX and ES module style: functional components, hooks,
   single quotes, and no statement-ending semicolons. Preserve each module's
   existing named or default export convention.
-- Use the `@/` alias for imports from `src/` where appropriate; it is configured
-  in Vite and `jsconfig.json` and provides stable imports for Code Connect snippets.
+- Import shared components from `@green-hill/design-system` or its exported
+  `components/*.jsx` subpaths. Use relative imports inside the design system.
+  The `@/` alias is app-local and resolves to `apps/app-screens/src/`.
 - Reuse the shared components rather than duplicating their markup or overriding
   their variant styling in screens. Keep component props, stories, and relevant
   Code Connect mappings consistent when changing a component API.
-- Use semantic CSS variables and the Tailwind scales in `tailwind.config.js`.
+- Use semantic CSS variables and the Tailwind scales in `packages/design-system/tailwind.preset.js`.
   Spacing and font sizes use custom scales; check available keys before adding
   utilities. Avoid hardcoded theme colors and unnecessary per-component theme overrides.
 - Verify visual changes in Light, Dark, 16-bit, and 32-bit modes. Keep initial
-  theme application in `index.html` consistent with `src/useTheme.js` when changing
+  theme application in `apps/app-screens/index.html` consistent with `packages/design-system/src/useTheme.js` when changing
   theme behavior.
 - Preserve accessible labels, keyboard interaction, focus states, disabled states,
   and dialog behavior. Use the existing `Icon` component and SVG sprite for glyphs;
   retain base-path-safe asset URLs for Storybook on GitHub Pages.
 - Add or update colocated Storybook stories for meaningful component states.
   Follow existing metadata, controls, and callback logging patterns; shared themes
-  and the memory router are already supplied by `.storybook/preview.jsx`.
+  and the memory router are already supplied by `packages/design-system/.storybook/preview.jsx`.
 
 ## Figma Code Connect
 
-Read `src/figma/README.md` before changing mappings. Use the existing parserless
+Read `packages/design-system/src/figma/README.md` before changing mappings. Use the existing parserless
 `.figma.ts` format with `figma.code`; do not introduce `.figma.tsx` mappings using
 `figma.connect()`. Keep `// url=<FIGMA_...>` placeholders in templates and resolve
 them through `documentUrlSubstitutions` in the appropriate config.
@@ -145,7 +150,7 @@ only when publishing is part of the requested work.
 2. Keep changes focused on the requested behavior and update affected documentation,
    stories, and mappings alongside implementation changes.
 3. For application changes, run `npm run lint` and `npm run build`. For component
-   or Storybook changes, also run `npm run build-storybook`. CI runs lint and the
+   or Storybook changes, also run `npm run build-storybook`. CI runs lint, the application build, and the
    Storybook build for pull requests targeting `main`.
 4. There is no dedicated automated test script in `package.json`. Exercise affected
    routes and component interactions in the app or Storybook, including relevant

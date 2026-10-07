@@ -3,11 +3,12 @@
     "label": "HTML",
     "language": "html",
     "include": [
-      "src/figma-html/**/*.figma.ts"
+      "packages/design-system/src/figma-html/**/*.figma.ts"
     ],
     "exclude": [
-      "node_modules/**",
-      "dist/**"
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/storybook-static/**"
     ],
     "documentUrlSubstitutions": {
       "<FIGMA_BIG_BUTTON>": "https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ?node-id=23-50",

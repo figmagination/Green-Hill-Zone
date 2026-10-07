@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Introduction" />
+
+# Green Hill component library
+
+The reusable components behind the Green Hill operations app. Open a component's
+**Docs** page for its props, examples, and copyable source; open a story to change
+props in **Controls** and inspect callbacks in **Actions**.
+
+## Themes
+
+Use the theme selector in the toolbar to preview Light, Dark, 16-bit, and 32-bit.
+These are the app's actual CSS custom properties and Tailwind styles. ThemeToggle
+cycles themes inside the preview; use the toolbar to reset the preview theme.
+
+## Component conventions
+
+- **Atoms** are controls and small visual primitives.
+- **Compositions** combine primitives into headers, cards, navigation, tables, and dialogs.
+- Inputs, selects, switches, sorting, and row selection are controlled by their caller.
+  The interactive stories update props so you can try the behavior.
+- Slots accept React nodes: pass an Icon to a button or badges and actions to a header.
+- Hover, focus, and pressed states come from browser interactions. Use your mouse
+  or keyboard to explore them; they are not component props.
+- Navigation examples use an isolated memory router. They do not navigate away from Storybook.
+
+## Accessibility
+
+Give form controls a unique `id` and visible `label`; give standalone switches a
+`label`. Icons are decorative unless given a `label`. Avatars without photos show
+initials and need adjacent text naming the person. Modal demonstrates dismissal
+by Escape and backdrop click; the current component does not implement a focus trap.
+
+## Local development
+
+From the repository root, run `npm ci` and `npm run storybook` to open the library on port 6006.
+Run `npm run build-storybook` to generate the static site in `packages/design-system/storybook-static`.

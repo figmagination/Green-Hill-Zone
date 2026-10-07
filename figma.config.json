@@ -3,13 +3,19 @@
     "parser": "react",
     "label": "React",
     "language": "jsx",
-    "include": ["src/figma/**/*.figma.ts"],
-    "exclude": ["node_modules/**", "dist/**"],
+    "include": [
+      "packages/design-system/src/figma/**/*.figma.ts"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/storybook-static/**"
+    ],
     "paths": {
-      "@/components/*": "src/components/*"
+      "@green-hill/design-system/components/*": "packages/design-system/src/components/*"
     },
     "importPaths": {
-      "src/components/*": "@/components"
+      "packages/design-system/src/components/*": "@green-hill/design-system/components"
     },
     "documentUrlSubstitutions": {
       "<FIGMA_AVATAR>": "https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ?node-id=107-12",

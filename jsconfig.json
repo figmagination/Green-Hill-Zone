@@ -3,7 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "apps/app-screens/src/*"
+      ],
+      "@green-hill/design-system": [
+        "packages/design-system/src/index.js"
+      ],
+      "@green-hill/design-system/components/*": [
+        "packages/design-system/src/components/*"
       ]
     },
     "types": [
@@ -13,10 +19,13 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src/**/*",
+    "apps/**/*",
+    "packages/**/*",
     "*.config.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/dist",
+    "**/storybook-static"
   ]
 }

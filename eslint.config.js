@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'storybook-static']),
+  globalIgnores(['**/dist/**', '**/storybook-static/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -27,7 +27,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/**/*.stories.{js,jsx}', '.storybook/**/*.{js,jsx}'],
+    files: ['packages/design-system/src/**/*.stories.{js,jsx}', 'packages/design-system/.storybook/**/*.{js,jsx}'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
 ])
