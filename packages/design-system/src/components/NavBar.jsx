@@ -3,6 +3,7 @@ import ThemeToggle from './ThemeToggle.jsx'
 
 const NAV_LINKS = [
   { to: '/dashboard', text: 'Dashboard' },
+  { to: '/accounts', text: 'Accounts' },
   { to: '/billing', text: 'Billing' },
   { to: '/team', text: 'Team' },
   { to: '/integrations', text: 'Integrations' },
@@ -51,18 +52,18 @@ export default function NavBar({ brand = 'Green Hill' }) {
   const isActive = (to) => pathname === to || pathname.startsWith(`${to}/`)
 
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--border)] bg-[var(--surface)] px-6 py-4">
+    <header className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 border-b border-[var(--border)] bg-[var(--surface)] px-6 py-4 sm:flex sm:flex-wrap sm:gap-4">
       <Link to="/dashboard" className="no-underline">
         <div className="text-22 font-bold text-[var(--brand)]">{brand}</div>
       </Link>
-      <div className="flex flex-wrap items-center gap-4">
-        <nav className="flex flex-wrap gap-4">
-          {NAV_LINKS.map((item) => (
-            <NavItem key={item.to} to={item.to} active={isActive(item.to)}>
-              {item.text}
-            </NavItem>
-          ))}
-        </nav>
+      <nav aria-label="Main navigation" className="col-span-2 row-start-2 flex flex-wrap gap-x-4 gap-y-2 sm:order-none">
+        {NAV_LINKS.map((item) => (
+          <NavItem key={item.to} to={item.to} active={isActive(item.to)}>
+            {item.text}
+          </NavItem>
+        ))}
+      </nav>
+      <div className="col-start-2 row-start-1">
         <ThemeToggle />
       </div>
     </header>

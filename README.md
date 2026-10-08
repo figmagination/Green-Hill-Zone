@@ -263,6 +263,7 @@ The operations app provides composed examples for training exercises:
 | Route | Example |
 | --- | --- |
 | `/dashboard` | Overview stats and a recent accounts table. |
+| `/accounts` | Responsive account register, customer filters, sorting, and validated account/contact creation in memory. |
 | `/billing` | Invoice table and a record-payment confirmation dialog. |
 | `/billing/aging` | Receivables aging buckets. |
 | `/team` | Member list and an invite-user form dialog. |
@@ -271,6 +272,12 @@ The operations app provides composed examples for training exercises:
 | `/settings` | Workspace form, toggles, and disabled-button validation. |
 
 Routes are defined in `apps/app-screens/src/App.jsx`; screens live in `apps/app-screens/src/pages/`.
+
+Accounts starts with illustrative preview records. New accounts retain their
+customer name, contact person, and email in component state, start on the Starter
+plan with $0 MRR and Active status, and reset on reload. Both customer filters
+combine, and Cancel clears the draft. This training implementation does not
+connect to a production account service.
 
 ## Code Connect conventions
 

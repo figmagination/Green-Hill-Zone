@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Dashboard from '@/pages/Dashboard.jsx'
+import AccountsScreen from '@/pages/AccountsScreen.jsx'
 import SettingsScreen from '@/pages/SettingsScreen.jsx'
 import ReportsScreen from '@/pages/ReportsScreen.jsx'
 import BillingInvoices from '@/pages/BillingInvoices.jsx'
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/accounts" element={<AccountsScreen />} />
         <Route path="/billing" element={<BillingInvoices />} />
         <Route path="/billing/aging" element={<BillingAgingReport />} />
         <Route path="/team" element={<TeamMembersScreen />} />

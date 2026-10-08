@@ -9,6 +9,10 @@ const value = instance.getString('Value')
 const message = instance.getString('Message')
 const required = instance.getBoolean('Required')
 
+// Optional code-only composition props: `compact` removes the outer field
+// margin for grid forms; `icon` accepts a decorative leading glyph. Existing
+// Figma InputField variants map to the unchanged default layout.
+
 // Figma has no notion of a DOM id, so this is a best-effort slug of the label,
 // not a real id from any screen. Every real usage picks its own (SettingsScreen
 // uses "ws-name", TeamMembersScreen uses "invite-email") — swap this for
