@@ -11,9 +11,9 @@
       "**/storybook-static/**"
     ],
     "documentUrlSubstitutions": {
-      "<FIGMA_BIG_BUTTON>": "https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ?node-id=23-50",
-      "<FIGMA_ICON>": "https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ?node-id=99-22",
-      "<FIGMA_STATUS_BADGE>": "https://www.figma.com/design/MZEnA8pImq1ffqpPgQCzCZ?node-id=2-735"
+      "<FIGMA_BIG_BUTTON>": "https://www.figma.com/design/iliz3k6yDsdS6m9f5tK9oc?node-id=23-50",
+      "<FIGMA_ICON>": "https://www.figma.com/design/iliz3k6yDsdS6m9f5tK9oc?node-id=99-22",
+      "<FIGMA_STATUS_BADGE>": "https://www.figma.com/design/iliz3k6yDsdS6m9f5tK9oc?node-id=2-735"
     }
   }
 }

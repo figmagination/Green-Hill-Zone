@@ -100,6 +100,29 @@ Form controls, table sorting and selection, and dialogs have interactive stories
 For exercises that modify code or publish mappings, use your own repository and
 Figma file copies.
 
+For guided lab setup in Codex, invoke `$prepare-lab` from this repository.
+The [lab setup skill](.agents/skills/prepare-lab/SKILL.md) guides importing both
+`.fig` files, collects their keys and a Code Connect token, and saves them in the
+ignored root `.env`, preserving unrelated settings. Token capture uses a
+Python 3 helper in your own terminal with echo disabled; do not enter the token
+in chat or a visible text prompt.
+
+Library publication, adding the library to App Screens, and swapping library
+references are manual steps in Figma. The skill guides these steps and verifies
+available read-only evidence, reporting unmatched assets and verification gaps.
+It also asks for your hosted Storybook URL, guides the existing GitHub Pages
+workflow if you need one, and adds component Dev Resource links through Figma MCP
+when supported. It writes an editable mapping table on a **Storybook Dev
+Resources** page in your Design System, with links to each component node and
+its Storybook documentation. If the page already exists, it updates only the
+Storybook URLs and their hyperlinks in place. The output includes no agent prompts.
+If MCP cannot manage Dev Resource links, the table supports manual linking and
+the skill reports the verification gap; it does not use REST.
+Its final step retargets `documentUrlSubstitutions` in both Code Connect configs,
+parses React and HTML mappings, and publishes both sets to your accepted Design
+System copy. Invoking lab setup includes this publication; editing the skill
+alone does not run setup or publish anything.
+
 1. Fork or clone this repository and create a meaningful branch before making
    changes. Never make changes directly on `main`.
 2. Duplicate the Design System and App Screens files into a workspace where you
@@ -150,6 +173,7 @@ Edit `.env` with your own values:
 ```dotenv
 FIGMA_ACCESS_TOKEN=your_personal_access_token
 FIGMA_FILE_KEY=your_design_system_file_key
+FIGMA_APP_SCREENS_FILE_KEY=your_app_screens_file_key
 ```
 
 The installed Code Connect CLI loads `.env` from the current working directory,
@@ -177,6 +201,9 @@ that shell and can be cleared with `unset FIGMA_ACCESS_TOKEN FIGMA_FILE_KEY`.
 `FIGMA_ACCESS_TOKEN` authenticates the CLI. `FIGMA_FILE_KEY` records the target
 file for training exercises and scripts; the current npm commands and Code
 Connect configs do **not** use it to rewrite template URLs automatically.
+
+`FIGMA_APP_SCREENS_FILE_KEY` records the imported App Screens key for lab
+reference; the current app and Code Connect commands do not consume it.
 
 Update the file-key segment of each relevant `documentUrlSubstitutions` URL in
 `figma.config.json` and `figma.config.html.json` to match your file key. Preserve
