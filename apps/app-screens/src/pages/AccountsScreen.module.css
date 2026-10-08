@@ -1,0 +1,117 @@
+.main {
+  padding: var(--space-24) var(--space-24) var(--space-40);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 352px;
+  align-items: start;
+  gap: var(--space-24);
+}
+
+.register,
+.form {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-20);
+  padding: var(--space-24);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-16);
+}
+
+.fields {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.desktopTable > div {
+  margin-top: 0;
+}
+
+.desktopTable th:first-child {
+  width: 56%;
+}
+
+.desktopTable th button {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.desktopTable th[aria-sort='ascending'] button,
+.desktopTable th[aria-sort='descending'] button {
+  color: var(--brand);
+}
+
+.mobileList {
+  display: none;
+}
+
+.mobileSort {
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  border: 0;
+  background: var(--bg-alt);
+  color: var(--brand);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-600);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileAccount {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--border);
+}
+
+.detailLabel {
+  color: var(--text-secondary);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-16);
+}
+
+.detailValue {
+  margin: var(--space-4) 0 0;
+  color: var(--text);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+}
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .register {
+    padding: var(--space-16);
+  }
+
+  .filters,
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .desktopTable {
+    display: none;
+  }
+
+  .mobileList {
+    display: block;
+  }
+}

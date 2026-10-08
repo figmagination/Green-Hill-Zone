@@ -143,6 +143,7 @@ to the identical component). So:
 | `BigButton.State=disabled` | `disabled` | hover/pressed are `:hover` / `:active`, no prop |
 | `InputField.State=error` | `error` | focus is `focus:ring-2`, no prop |
 | `InputField.State=disabled` | `disabled` | |
+| `InputField` code-only composition | `compact`, `icon` | Compact grid layout and an optional decorative leading icon; existing Figma variants retain the default layout. Companion InputField needs these properties before they can be mapped. |
 | `InputField.Has Message` | `error` **or** `helpText` | one slot, never both |
 | `InlineBanner.Has Action` | `action` | BOOLEAN property, not a variant axis |
 | `InlineBanner.Has Description` | `description` | VARIANT axis (`"true"`/`"false"`) |

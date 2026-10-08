@@ -21,12 +21,14 @@ export function InputField({
   required = false,
   error,
   helpText,
+  icon,
+  compact = false,
 }) {
   const describedById = error ? `${id}-error` : helpText ? `${id}-help` : undefined
 
   return (
-    <div className="mb-4">
-      <label htmlFor={id} className="mb-2 block text-14 font-semibold text-[var(--text)]">
+    <div className={compact ? 'min-w-0' : 'mb-4'}>
+      <label htmlFor={id} className={`${compact ? 'mb-1.5' : 'mb-2'} block text-14 font-semibold text-[var(--text)]`}>
         {label}
         {required && (
           <span aria-hidden="true" className="ml-1 text-[var(--danger)]">
@@ -34,22 +36,25 @@ export function InputField({
           </span>
         )}
       </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        required={required}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedById}
-        className="w-full rounded-md border bg-[var(--surface)] px-3 py-2 text-14 text-[var(--text-strong)] outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50"
-        style={{
-          borderColor: error ? 'var(--danger)' : 'var(--border-strong)',
-          '--tw-ring-color': error ? 'var(--danger)' : 'var(--brand-link)',
-        }}
-      />
+      <div className="relative">
+        {icon && <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]">{icon}</span>}
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          disabled={disabled}
+          required={required}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedById}
+          className={`w-full border bg-[var(--surface)] px-3 py-2 text-14 outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${compact ? 'h-10 rounded-lg text-[var(--text)]' : 'rounded-md text-[var(--text-strong)]'} ${icon ? 'pl-8' : ''}`}
+          style={{
+            borderColor: error ? 'var(--danger)' : 'var(--border-strong)',
+            '--tw-ring-color': error ? 'var(--danger)' : 'var(--brand-link)',
+          }}
+        />
+      </div>
       {error ? (
         <p id={`${id}-error`} className="m-0 mt-1.5 text-12 font-medium text-[var(--danger)]">
           {error}
