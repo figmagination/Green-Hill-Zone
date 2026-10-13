@@ -1,0 +1,147 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-24) calc(var(--space-16) - 1px);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.main {
+  padding: var(--space-24) var(--space-24) var(--space-40);
+}
+
+.heading > div {
+  margin-bottom: var(--space-20);
+}
+
+.heading h1 {
+  font-weight: var(--font-weight-700);
+}
+
+.heading p {
+  font-size: var(--font-size-15);
+  line-height: var(--line-height-24);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 352px;
+  gap: var(--space-24);
+  align-items: start;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  min-width: 0;
+  padding: calc(var(--space-24) - 1px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-16);
+}
+
+.filters :global(.mb-4),
+.fields :global(.mb-4) {
+  margin-bottom: 0;
+}
+
+.filters label,
+.fields label {
+  margin-bottom: var(--space-6);
+}
+
+.filters input,
+.fields input {
+  height: var(--space-40);
+  border-radius: var(--radius-md);
+}
+
+.search {
+  position: relative;
+}
+
+.search input {
+  padding-left: calc(var(--space-12) + var(--space-16) + var(--space-8));
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-12);
+  top: calc(var(--line-height-20) + var(--space-6) + var(--space-12));
+  pointer-events: none;
+}
+
+.table > div {
+  margin-top: 0;
+}
+
+.table table {
+  min-width: 640px;
+  table-layout: fixed;
+}
+
+.table th:nth-child(1) { width: auto; }
+.table th:nth-child(2) { width: 160px; }
+.table th:nth-child(3) { width: 130px; }
+.table th:nth-child(4) { width: 120px; }
+
+.table th button {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.table th[aria-sort='ascending'] button,
+.table th[aria-sort='descending'] button {
+  color: var(--brand);
+}
+
+.table td {
+  height: var(--space-48);
+}
+
+.table td:last-child {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-10);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+@media (max-width: 1000px) {
+  .columns { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .main { padding: var(--space-16); }
+  .panel { padding: var(--space-16); }
+  .filters { grid-template-columns: minmax(0, 1fr); }
+}
+
+.navigation a:focus-visible,
+.table button:focus-visible {
+  outline: 2px solid var(--brand-link);
+  outline-offset: var(--space-4);
+}

@@ -71,6 +71,10 @@ export default function Dashboard() {
             Billing
           </Link>
           <span className="text-[var(--divider)]"> · </span>
+          <Link to="/accounts/v2" className="font-medium text-[var(--brand)] no-underline hover:underline">
+            Accounts v2
+          </Link>
+          <span className="text-[var(--divider)]"> · </span>
           <Link to="/team" className="font-medium text-[var(--brand)] no-underline hover:underline">
             Team
           </Link>

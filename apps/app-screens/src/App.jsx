@@ -6,6 +6,7 @@ import BillingInvoices from '@/pages/BillingInvoices.jsx'
 import BillingAgingReport from '@/pages/BillingAgingReport.jsx'
 import TeamMembersScreen from '@/pages/TeamMembersScreen.jsx'
 import IntegrationsPage from '@/pages/IntegrationsPage.jsx'
+import AccountsV2Screen from '@/pages/AccountsV2Screen.jsx'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/accounts/v2" element={<AccountsV2Screen />} />
         <Route path="/billing" element={<BillingInvoices />} />
         <Route path="/billing/aging" element={<BillingAgingReport />} />
         <Route path="/team" element={<TeamMembersScreen />} />

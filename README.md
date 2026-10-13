@@ -263,6 +263,7 @@ The operations app provides composed examples for training exercises:
 | Route | Example |
 | --- | --- |
 | `/dashboard` | Overview stats and a recent accounts table. |
+| `/accounts/v2` | Second account-page example from Figma node `125:2844`, with combined name filters, Customer/Plan/MRR sorting, and a validated primary-contact form. Data stays in memory; Cancel clears the form. |
 | `/billing` | Invoice table and a record-payment confirmation dialog. |
 | `/billing/aging` | Receivables aging buckets. |
 | `/team` | Member list and an invite-user form dialog. |
